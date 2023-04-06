@@ -5,7 +5,7 @@ import { MoviesList, MoviesInsert, MoviesUpdate } from "../pages"
 
 function App() {
   return (
-    <div className="h-screen justify-top items-center flex flex-col mb-10">
+    <div className="h-screen justify-top items-center flex flex-col mb-10 px-5">
       <Router>
         <NavBar />
         <Routes>

@@ -6,7 +6,7 @@ import { Links } from "./Links"
 class NavBar extends Component {
 	render() {
 		return (
-			<div className="navbar bg-base-100">
+			<div className="navbar bg-zinc-700 border border-zinc-700 rounded-lg mt-2 mb-5">
 				<div class="flex-1">
 					<Logo />
 					<Links />
