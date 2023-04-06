@@ -4,11 +4,6 @@ import { useTable } from "react-table"
 const Table = ({ items }) => {
 	const columns = useMemo(() => [
 		{
-			Header: "ID",
-			accessor: "_id",
-			filterable: "true",
-		},
-		{
 			Header: "Name",
 			accessor: "name",
 			filterable: "true",
@@ -34,33 +29,35 @@ const Table = ({ items }) => {
 	} = useTable({ columns, data })
 
 	return (
-		<table {...getTableProps()} className="table-compact w-full border border-slate-500 ...">
-			<thead>
-				{headerGroups.map(headerGroup => (
-					<tr {...headerGroup.getHeaderGroupProps()}>
-						{headerGroup.headers.map(column => (
-							<th {...column.getHeaderProps()}>
-								{column.render("Header")}
-							</th>
-						))}
-					</tr>
-				))}
-			</thead>
-			<tbody {...getTableBodyProps()}>
-				{rows.map(row => {
-					prepareRow(row)
-					return (
-						<tr {...row.getRowProps()}>
-							{row.cells.map(cell => (
-								<td {...cell.getCellProps()}>
-									{cell.render("Cell")}
-								</td>
+		<div className="w-full overflow-x-auto bg-base-300 rounded-md">
+			<table {...getTableProps()} className="table-compact w-full bg-base-200 rounded-md">
+				<thead className="bg-base-300">
+					{headerGroups.map(headerGroup => (
+						<tr {...headerGroup.getHeaderGroupProps()}>
+							{headerGroup.headers.map(column => (
+								<th {...column.getHeaderProps()} className="text-start">
+									{column.render("Header")}
+								</th>
 							))}
 						</tr>
-					)
-				})}
-			</tbody>
-		</table>
+					))}
+				</thead>
+				<tbody {...getTableBodyProps()}>
+					{rows.map(row => {
+						prepareRow(row)
+						return (
+							<tr {...row.getRowProps()}>
+								{row.cells.map(cell => (
+									<td {...cell.getCellProps()}>
+										{cell.render("Cell")}
+									</td>
+								))}
+							</tr>
+						)
+					})}
+				</tbody>
+			</table>
+		</div>
 	)
 }
 
