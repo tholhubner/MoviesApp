@@ -1,13 +1,35 @@
-import React, { Component } from "react"
+import React, { useEffect, useState } from "react"
+import api from "../api"
+import styled from "styled-components"
+import { Table } from "../components"
 
-class MoviesList extends Component {
-	render() {
-		return (
-			<div>
-				<p>Here you will see the movies list</p>
-			</div>
-		)
-	}
+const Wrapper = styled.div`
+	padding: 0 40px 40px 40px;
+`
+
+const MoviesList = () => {
+	const [movies, setMovies] = useState([])
+	const [showTable, setShowTable] = useState(false)
+
+	useEffect(() => {
+		async function fetchMovieList() {
+			const request = await api.getAllMovies()
+			if (request.data.data.length > 0) {
+				console.log("Movies Got :: ", request.data.data)
+				setMovies(request.data.data)
+				setShowTable(true)
+			}
+		}
+		fetchMovieList()
+	}, [])
+
+	return (
+		<Wrapper>
+			{showTable && (
+				<Table items={movies} />
+			)}
+		</Wrapper>
+	)
 }
 
 export default MoviesList
