@@ -34,12 +34,12 @@ const Table = ({ items }) => {
 	} = useTable({ columns, data })
 
 	return (
-		<table {...getTableProps()} className="table-auto border-collapse border border-slate-500 ...">
+		<table {...getTableProps()} className="table w-full border border-slate-500 ...">
 			<thead>
 				{headerGroups.map(headerGroup => (
 					<tr {...headerGroup.getHeaderGroupProps()}>
 						{headerGroup.headers.map(column => (
-							<th {...column.getHeaderProps()} className="border border-slate-600 ...">
+							<th {...column.getHeaderProps()}>
 								{column.render("Header")}
 							</th>
 						))}
@@ -52,7 +52,7 @@ const Table = ({ items }) => {
 					return (
 						<tr {...row.getRowProps()}>
 							{row.cells.map(cell => (
-								<td {...cell.getCellProps()} className="border border-slate-700 ...">
+								<td {...cell.getCellProps()}>
 									{cell.render("Cell")}
 								</td>
 							))}
