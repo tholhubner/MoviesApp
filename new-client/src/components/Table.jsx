@@ -1,5 +1,7 @@
 import React, { useMemo } from "react"
 import { useTable } from "react-table"
+import { UpdateButton } from "./UpdateButton"
+import { DeleteButton } from "./DeleteButton"
 
 const Table = ({ items }) => {
 	const columns = useMemo(() => [
@@ -18,6 +20,20 @@ const Table = ({ items }) => {
 			accessor: "time",
 			Cell: props => <span>{props.value.join(" / ")}</span>,
 		},
+		{
+			Header: "",
+			accessor: "delete",
+			Cell: props => (
+				<UpdateButton id={props.row.original._id} />
+			)
+		},
+		{
+			Header: "",
+			accessor: "update",
+			Cell: props => (
+				<DeleteButton id={props.row.original._id} />
+			)
+		}
 	], [])
 	const data = useMemo(() => items, [items])
 	const {
