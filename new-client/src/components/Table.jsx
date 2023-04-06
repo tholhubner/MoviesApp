@@ -34,7 +34,7 @@ const Table = ({ items }) => {
 	} = useTable({ columns, data })
 
 	return (
-		<table {...getTableProps()} className="table w-full border border-slate-500 ...">
+		<table {...getTableProps()} className="table-compact w-full border border-slate-500 ...">
 			<thead>
 				{headerGroups.map(headerGroup => (
 					<tr {...headerGroup.getHeaderGroupProps()}>
