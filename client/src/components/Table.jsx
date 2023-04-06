@@ -1,10 +1,5 @@
 import React, { useMemo } from "react"
 import { useTable } from "react-table"
-import styled from "styled-components"
-
-const Wrapper = styled.div`
-	padding: 0 40px 40px 40px;
-`
 
 const Table = ({ items }) => {
 	const columns = useMemo(() => [
@@ -39,35 +34,33 @@ const Table = ({ items }) => {
 	} = useTable({ columns, data })
 
 	return (
-		<Wrapper>
-			<table {...getTableProps()}>
-				<thead>
-					{headerGroups.map(headerGroup => (
-						<tr {...headerGroup.getHeaderGroupProps()}>
-							{headerGroup.headers.map(column => (
-								<th {...column.getHeaderProps()}>
-									{column.render("Header")}
-								</th>
+		<table {...getTableProps()} className="table-auto border-collapse border border-slate-500 ...">
+			<thead>
+				{headerGroups.map(headerGroup => (
+					<tr {...headerGroup.getHeaderGroupProps()}>
+						{headerGroup.headers.map(column => (
+							<th {...column.getHeaderProps()} className="border border-slate-600 ...">
+								{column.render("Header")}
+							</th>
+						))}
+					</tr>
+				))}
+			</thead>
+			<tbody {...getTableBodyProps()}>
+				{rows.map(row => {
+					prepareRow(row)
+					return (
+						<tr {...row.getRowProps()}>
+							{row.cells.map(cell => (
+								<td {...cell.getCellProps()} className="border border-slate-700 ...">
+									{cell.render("Cell")}
+								</td>
 							))}
 						</tr>
-					))}
-				</thead>
-				<tbody {...getTableBodyProps()}>
-					{rows.map(row => {
-						prepareRow(row)
-						return (
-							<tr {...row.getRowProps()}>
-								{row.cells.map(cell => (
-									<td {...cell.getCellProps()}>
-										{cell.render("Cell")}
-									</td>
-								))}
-							</tr>
-						)
-					})}
-				</tbody>
-			</table>
-		</Wrapper>
+					)
+				})}
+			</tbody>
+		</table>
 	)
 }
 

@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react"
 import api from "../api"
-import styled from "styled-components"
 import { Table } from "../components"
-
-const Wrapper = styled.div`
-	padding: 0 40px 40px 40px;
-`
 
 const MoviesList = () => {
 	const [movies, setMovies] = useState([])
@@ -24,11 +19,11 @@ const MoviesList = () => {
 	}, [])
 
 	return (
-		<Wrapper>
+		<>
 			{showTable && (
 				<Table items={movies} />
 			)}
-		</Wrapper>
+		</>
 	)
 }
 
