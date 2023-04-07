@@ -13,7 +13,7 @@ const DeleteButton = (props) => {
 	return (
 		<span>
 			<button
-				className="btn btn-outline btn-xs btn-warning"
+				className="btn btn-outline btn-xs btn-error"
 				onClick={() => deleteItem()}
 			>
 				Delete
