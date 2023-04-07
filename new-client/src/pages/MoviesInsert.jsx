@@ -92,7 +92,11 @@ const MoviesInsert = () => {
 			/>
 			<div className="btn-group justify-end">
 				<button
-					className={loading ? "btn btn-primary loading" : "btn btn-primary"}
+					className={
+						loading ?
+						(id ? "btn btn-secondary loading" : "btn btn-primary loading") :
+						(id ? "btn btn-secondary" : "btn btn-primary")
+					}
 					onClick={() => onSubmitHandler()}
 				>
 					{ id ? "Update" : "Submit" }
