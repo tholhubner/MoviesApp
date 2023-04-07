@@ -1,7 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import api from "../api"
+import { useParams } from "react-router-dom"
 
 const MoviesInsert = () => {
+	const { id } = useParams()
 	const [movieName, setMovieName] = useState("")
 	const [movieRating, setRating] = useState(0)
 	const [movieTimes, setMovieTimes] = useState("")
@@ -9,24 +11,46 @@ const MoviesInsert = () => {
 
 	const onSubmitHandler = async () => {
 		setLoading(true)
-		console.log(movieName, movieRating, movieTimes)
 		if (movieName, movieRating, movieTimes) {
 			let timesArray = []
 			movieTimes.split(",").forEach(item => timesArray.push(String(item).trim()))
 			const payload = { name: movieName, rating: movieRating, time: timesArray }
 			console.log("Ready, ", payload)
-			await api.insertMovie(payload)
-				.then(res => {
-					window.alert("Movie inserted successfully")
-					setMovieName("")
-					setRating(0)
-					setMovieTimes("")
-					setLoading(false)
-				})
+			if (id) {
+				await api.updateMovieById(id, payload)
+					.then(res => {
+						window.alert("Movie updated successfully")
+						window.location.href = "/movies/list"
+					})
+			} else {
+				await api.insertMovie(payload)
+					.then(res => {
+						window.alert("Movie inserted successfully")
+						setMovieName("")
+						setRating(0)
+						setMovieTimes("")
+						setLoading(false)
+					})
+			}
 		} else {
 			setLoading(false)
 		}
 	}
+
+	useEffect(() => {
+		async function getMovieById() {
+			if (id) {
+				const movie = await api.getMovieById(id)
+				if (movie) {
+					console.log(movie)
+					setMovieName(movie.data.data.name)
+					setRating(movie.data.data.rating)
+					setMovieTimes(movie.data.data.time.join(", "))
+				}
+			}
+		}
+		getMovieById()
+	}, [])
 
 	return (
 		<div className="form-control w-1/2">
@@ -67,7 +91,12 @@ const MoviesInsert = () => {
 				onChange={(event) => setMovieTimes(event.target.value)}
 			/>
 			<div className="btn-group justify-end">
-				<button className={loading ? "btn btn-primary loading" : "btn btn-primary"} onClick={() => onSubmitHandler()}>Submit</button>
+				<button
+					className={loading ? "btn btn-primary loading" : "btn btn-primary"}
+					onClick={() => onSubmitHandler()}
+				>
+					{ id ? "Update" : "Submit" }
+				</button>
 				<button className="btn btn-error" onClick={() => window.location.href = "/movies/list"}>Cancel</button>
 			</div>
 		</div>

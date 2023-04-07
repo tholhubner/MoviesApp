@@ -6,7 +6,7 @@ const DeleteButton = (props) => {
 		console.log(props.id)
 		if (window.confirm("Delete this item permanently?")) {
 			api.deleteMovieById(props.id)
-			window.location.reload()
+			// window.location.reload()
 		}
 	}
 
